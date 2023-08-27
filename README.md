@@ -42,27 +42,27 @@ Réalisez les routes d'API suivantes (elles enverront les contenus JSON et les c
 
 #### Les plats :
 
-* POST /dishes (créer un plat)
-* GET /dishes (récupérer tous les plats)
-* GET /dishes/:dish_id (récupérer un plat à partir de son identifiant)
-* PUT /dishes/:dish_id (modifier un plat à partir de son identifiant)
-* DELETE /dishes/:dish_id (supprimer un plat à partir de son identifiant)
+* POST /dishes : créer un plat
+* GET /dishes : récupérer tous les plats
+* GET /dishes/:dish_id : récupérer un plat à partir de son identifiant
+* PUT /dishes/:dish_id : modifier un plat à partir de son identifiant
+* DELETE /dishes/:dish_id : supprimer un plat à partir de son identifiant
 
 #### Les utilisateurs :
 
-* POST /users (créer un utilisateur avec un email unique et son mot de passe hashé avec bcrypt)
+* POST /users : créer un utilisateur avec un email unique et son mot de passe hashé avec bcrypt
 
 #### Les commandes :
 
-* POST /orders (créer une commande, ne pas oublier d'y associer l'utilisateur qui a commandé et d'y ajouter les plats)
-* GET /orders (récupérer la liste de toutes les commandes)
-* GET /orders/:order_id (récupérer une commande à partir de son identifiant unique)
-* GET /orders/status/:status (récupérer la liste des commandes filtrées sur un statut)
-* PUT /orders/:order_id/status/:status (permet de modifier le statut d'une commande)
+* POST /orders : créer une commande, ne pas oublier d'y associer l'utilisateur qui a commandé et d'y ajouter les plats
+* GET /orders : récupérer la liste de toutes les commandes
+* GET /orders/:order_id : récupérer une commande à partir de son identifiant unique
+* GET /orders/status/:status : récupérer la liste des commandes filtrées sur un statut
+* PUT /orders/:order_id/status/:status : permet de modifier le statut d'une commande
 
 #### L'authentification :
 
-* POST /login (permet à un utilisateur de se connecter, doit renvoyer un JSON Web Token)
+* POST /login : permet à un utilisateur de se connecter, doit renvoyer un JSON Web Token
 
 Enfin, modifiez les routes suivantes :
 
@@ -73,9 +73,9 @@ Enfin, modifiez les routes suivantes :
 
 Ajouter une table permettant de gérer les rôles : un rôle peut-être USER ou ADMIN. Un utilisateur peut posséder plusieurs rôles, un rôle peut être associé à plusieurs utilisateurs.
 
-Modifier les routes suivantes :
+Modifier les routes suivantes pour que seul un administrateur y ait accès :
 
-* GET /orders : seul un administrateur a accès à cette route
-* GET /orders/:order_id : seul un administrateur a accès à cette route
-* GET /orders/:status : seul un administrateur a accès à cette route
-* PUT /orders/:order_id/:status : seul un administrateur a accès à cette route
+* GET /orders
+* GET /orders/:order_id
+* GET /orders/status/:status
+* PUT /orders/:order_id/status/:status
