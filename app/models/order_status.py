@@ -1,8 +1,8 @@
-import enum
+from enum import Enum
 
-class OrderStatus(enum.Enum):
-    pending = 'Pending'
-    ongoing = 'Ongoing'
-    completed = 'Completed'
-    delivered = 'Delivered'
-    cancelled = 'Cancelled'
+class OrderStatus(str, Enum):
+    PENDING = 'Pending'
+    ONGOING = 'Ongoing'
+    COMPLETE = 'Completed'
+    DELIVERED = 'Delivered'
+    CANCELLED = 'Cancelled'

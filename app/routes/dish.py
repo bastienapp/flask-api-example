@@ -3,24 +3,24 @@ from app import app, db
 from app.models.dish import Dish
 
 @app.route('/dishes', methods=['GET'])
-def getAll():
+def getAllDishes():
     return jsonify(Dish.query.all())
 
 @app.route('/dishes/<int:id>', methods=['GET'])
-def getOne(id):
+def getOneDish(id):
     dish = Dish.query.get(id)
     if dish is None:
         abort(404)
     return jsonify(dish)
 
 @app.route('/dishes', methods=['POST'])
-def create():
+def createDish():
     data = request.get_json()
-    newDish = Dish(
+    new_dish = Dish(
         name=data.get('name'),
         description=data.get('description'),
         price=data.get('price')
     )
-    db.session.add(newDish)
+    db.session.add(new_dish)
     db.session.commit()
-    return jsonify(newDish)
+    return jsonify(new_dish)
