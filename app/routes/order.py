@@ -3,11 +3,13 @@ from app import app, db
 from app.models.dish import Dish
 from app.models.order import Order
 from app.models.order_status import OrderStatus
-from app.routes.auth import token_required
+from app.routes.auth import is_admin, token_required
 
 
 @app.route('/orders', methods=['GET'])
-def get_all_orders():
+@token_required
+@is_admin
+def get_all_orders(current_user):
     return jsonify(Order.query.all())
 
 

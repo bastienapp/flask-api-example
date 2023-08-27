@@ -28,13 +28,13 @@ Dans un premier temps, le restaurant ne souhaite pas proposer de menus, juste de
 
 ### Initialisation du dépôt
 
-* Initialiser un projet Flask avec les dépendances suivantes :
-  * flask
-  * flask-sqlalchemy
-  * flask-bcrypt
-  * pyjwt
-* Vous pouvez utiliser le SGBD de votre choix (cependant, pour plus de facilité, je conseille sqlite)
-* Versionnez votre projet avec git et poussez vos modifications sur un dépôt distant (ex: GitHub ou GitLab)
+- Initialiser un projet Flask avec les dépendances suivantes :
+  - flask
+  - flask-sqlalchemy
+  - flask-bcrypt
+  - pyjwt
+- Vous pouvez utiliser le SGBD de votre choix (cependant, pour plus de facilité, je conseille sqlite)
+- Versionnez votre projet avec git et poussez vos modifications sur un dépôt distant (ex: GitHub ou GitLab)
 
 ### API
 
@@ -42,40 +42,50 @@ Réalisez les routes d'API suivantes (elles enverront les contenus JSON et les c
 
 #### Les plats :
 
-* POST /dishes : créer un plat
-* GET /dishes : récupérer tous les plats
-* GET /dishes/:dish_id : récupérer un plat à partir de son identifiant
-* PUT /dishes/:dish_id : modifier un plat à partir de son identifiant
-* DELETE /dishes/:dish_id : supprimer un plat à partir de son identifiant
+- POST /dishes : créer un plat
+- GET /dishes : récupérer tous les plats
+- GET /dishes/:dish_id : récupérer un plat à partir de son identifiant
+- PUT /dishes/:dish_id : modifier un plat à partir de son identifiant
+- DELETE /dishes/:dish_id : supprimer un plat à partir de son identifiant
 
 #### Les utilisateurs :
 
-* POST /users : créer un utilisateur avec un email unique et son mot de passe hashé avec bcrypt
+- POST /users : créer un utilisateur avec un email unique et son mot de passe hashé avec bcrypt
 
 #### Les commandes :
 
-* POST /orders : créer une commande, ne pas oublier d'y associer l'utilisateur qui a commandé et d'y ajouter les plats
-* GET /orders : récupérer la liste de toutes les commandes
-* GET /orders/:order_id : récupérer une commande à partir de son identifiant unique
-* GET /orders/status/:status : récupérer la liste des commandes filtrées sur un statut
-* PUT /orders/:order_id/status/:status : permet de modifier le statut d'une commande
+- POST /orders : créer une commande, ne pas oublier d'y associer l'utilisateur qui a commandé et d'y ajouter les plats
+- GET /orders : récupérer la liste de toutes les commandes
+- GET /orders/:order_id : récupérer une commande à partir de son identifiant unique
+- GET /orders/status/:status : récupérer la liste des commandes filtrées sur un statut
+- PUT /orders/:order_id/status/:status : permet de modifier le statut d'une commande
 
 #### L'authentification :
 
-* POST /login : permet à un utilisateur de se connecter, doit renvoyer un JSON Web Token
+- POST /login : permet à un utilisateur de se connecter, doit renvoyer un JSON Web Token
 
 Enfin, modifiez les routes suivantes :
 
-* POST /orders : seul un utilisateur connecté peut effectuer une commande
-* POST /orders/:order_id/dishes/:dish_id : seul l'utilisateur possédant la commande a le droit d'y ajouter un plat
+- POST /orders : seul un utilisateur connecté peut effectuer une commande
+- POST /orders/:order_id/dishes/:dish_id : seul l'utilisateur possédant la commande a le droit d'y ajouter un plat
+
+##### Conseils :
+
+- Récupérez l'utilisateur actuel à partir du JWT
+- Créez un décorateur `token_required` pour faire cette vérification, puis passez l'utilisateur connecté à la méthode décorée
 
 #### Gestion des rôles :
 
-Ajouter une table permettant de gérer les rôles : un rôle peut-être USER ou ADMIN. Un utilisateur peut posséder plusieurs rôles, un rôle peut être associé à plusieurs utilisateurs.
+Ajouter un champ permettant de gérer les rôles, dans la table de l'utilisateur : un rôle peut-être USER ou ADMIN.
 
-Modifier les routes suivantes pour que seul un administrateur y ait accès :
+Modifier les routes suivantes, afin que seul un administrateur y ait accès :
 
-* GET /orders
-* GET /orders/:order_id
-* GET /orders/status/:status
-* PUT /orders/:order_id/status/:status
+- GET /orders
+- GET /orders/:order_id
+- GET /orders/status/:status
+- PUT /orders/:order_id/status/:status
+
+##### Conseils :
+
+- Faites en sorte que cette vérification soit faite grâce à une donnée stockée dans le JWT (il faudra donc modifier la création d'un JWT pour y ajouter le rôle de l'utilisateur)
+- Créez un décorateur `is_admin` pour faire cette vérification

@@ -23,7 +23,8 @@ def login():
     token = jwt.encode(
         {
             'email': user.email,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+            'role': user.role.name
         }, app.config['SECRET_KEY'], algorithm="HS256")
 
     return jsonify({'token': token})
@@ -62,5 +63,18 @@ def token_required(func):
             except Exception as error:
                 print(error)
                 abort(401)
+
+    return wrapper
+
+def is_admin(func):
+    @wraps(func)
+    def wrapper(current_user, *args, **kwargs):
+        if current_user is None:
+            abort(401)
+
+        if current_user.role.name != 'ADMIN':
+            abort(401)
+
+        return func(current_user, *args, **kwargs)
 
     return wrapper
