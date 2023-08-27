@@ -5,18 +5,19 @@ from app.models.order import Order
 from app.models.order_status import OrderStatus
 
 @app.route('/orders', methods=['GET'])
-def getAllOrders():
+def get_all_orders():
     return jsonify(Order.query.all())
 
 @app.route('/orders/<int:id>', methods=['GET'])
-def getOneOrder(id):
+def get_order_by_id(id):
     order = Order.query.get(id)
     if order is None:
         abort(404)
+
     return jsonify(order)
 
 @app.route('/orders', methods=['POST'])
-def createOrder():
+def create_order():
     data = request.get_json()
     new_order = Order(
         user_id=data.get('user_id'),

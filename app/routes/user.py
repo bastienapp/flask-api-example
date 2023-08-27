@@ -4,7 +4,7 @@ from app.models.user import User
 
 
 @app.route('/users', methods=['POST'])
-def createUser():
+def create_user():
     data = request.get_json()
     hashed_password = bcrypt.generate_password_hash(
         data.get('password')
@@ -13,6 +13,7 @@ def createUser():
         email=data.get('email'),
         password=hashed_password
     )
+
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user)
