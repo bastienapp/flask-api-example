@@ -15,4 +15,4 @@ db = SQLAlchemy(app)
 #migration.drop()
 #migration.create()
 
-from app import routes
+from app.routes import dish
