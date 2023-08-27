@@ -6,3 +6,7 @@ class OrderStatus(str, Enum):
     COMPLETE = 'Completed'
     DELIVERED = 'Delivered'
     CANCELLED = 'Cancelled'
+
+    @classmethod
+    def has_value(cls, value):
+        return value in cls._value2member_map_
