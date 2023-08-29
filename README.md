@@ -33,6 +33,7 @@ Dans un premier temps, le restaurant ne souhaite pas proposer de menus, juste de
   - flask-sqlalchemy
   - flask-bcrypt
   - pyjwt
+  - pytest
 - Vous pouvez utiliser le SGBD de votre choix (cependant, pour plus de facilité, je conseille sqlite)
 - Versionnez votre projet avec git et poussez vos modifications sur un dépôt distant (ex: GitHub ou GitLab)
 
