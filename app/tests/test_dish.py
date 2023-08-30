@@ -13,3 +13,10 @@ assert response.status_code == 201
 assert response.json()['name'] == 'Pasta'
 assert response.json()['price'] == 10.99
 assert response.json()['description'] == 'Pasta with tomato sauce'
+
+response = requests.get(ENDPOINT + '/' + str(response.json()['id']))
+
+assert response.status_code == 200
+assert response.json()['name'] == 'Pasta'
+assert response.json()['price'] == 10.99
+assert response.json()['description'] == 'Pasta with tomato sauce'

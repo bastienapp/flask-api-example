@@ -1,4 +1,4 @@
-# Francky Vincent, le restaurant
+# Francky Vincent, le restaurant - tacos
 
 Vous avez été contacté par Francky Vincent, star de la chanson. Ce dernier souhaite créer une application qui lui permettrait d'automatiser le passage de commandes de son nouveau restaurant.
 
