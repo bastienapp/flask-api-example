@@ -2,10 +2,10 @@ import datetime
 from functools import wraps
 from flask import abort, jsonify, request
 import jwt
-from app import app, db, bcrypt
+from app import app, bcrypt
 from app.models.user import User
 
-app.config['SECRET_KEY'] = 'tacostacostacostacostacostacostacostacostacostacostacostacos'
+app.config['SECRET_KEY'] = 'tacostacostacostacostacostacostacostacostacostacos'
 
 
 @app.route('/login', methods=['POST'])
@@ -33,7 +33,7 @@ def login():
 def token_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if not "authorization" in request.headers:
+        if "authorization" not in request.headers:
             abort(401)
 
         auth = request.headers["authorization"]
@@ -48,7 +48,8 @@ def token_required(func):
 
         if token:
             try:
-                data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+                data = jwt.decode(
+                    token, app.config['SECRET_KEY'], algorithms=["HS256"])
 
                 if not data['email'] or not data['exp']:
                     abort(401)
@@ -65,6 +66,7 @@ def token_required(func):
                 abort(401)
 
     return wrapper
+
 
 def is_admin(func):
     @wraps(func)

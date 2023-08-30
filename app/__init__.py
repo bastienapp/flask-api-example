@@ -13,4 +13,4 @@ db = SQLAlchemy(app)
 
 bcrypt = Bcrypt(app)
 
-from app.routes import database, dish, order, user, auth
+from app.routes import database, dish, order, user, auth  # noqa
