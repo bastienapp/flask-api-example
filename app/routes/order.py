@@ -49,7 +49,7 @@ def create_order(current_user):
 
     db.session.add(new_order)
     db.session.commit()
-    return jsonify(new_order)
+    return jsonify(new_order), 201
 
 
 @app.route('/orders/<int:id>/status/<status>', methods=['PUT'])

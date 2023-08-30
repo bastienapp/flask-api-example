@@ -28,7 +28,7 @@ def create_dish():
 
     db.session.add(new_dish)
     db.session.commit()
-    return jsonify(new_dish)
+    return jsonify(new_dish), 201
 
 
 @app.route('/dishes/<int:id>', methods=['PUT'])

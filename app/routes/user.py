@@ -16,4 +16,4 @@ def create_user():
 
     db.session.add(new_user)
     db.session.commit()
-    return jsonify(new_user)
+    return jsonify(new_user), 201
