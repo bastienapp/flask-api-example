@@ -1,22 +1,31 @@
 import requests
 
+BASE_URL = "http://127.0.0.1:5000/dishes"
 
-ENDPOINT = 'http://localhost:5000/dishes'
 
-response = requests.post(ENDPOINT, json={
-    'name': 'Pasta',
-    'price': 10.99,
-    'description': 'Pasta with tomato sauce'
-})
+def test_post_dishes():
+    response = requests.post(
+        BASE_URL, json={
+            "name": "test name",
+            "description": "test description",
+            "price": 1.0})
+    assert response.status_code == 201
+    data = response.json()
+    assert data.get("name") == "test name"
+    assert data.get("description") == "test description"
+    assert data.get("price") == 1.0
 
-assert response.status_code == 201
-assert response.json()['name'] == 'Pasta'
-assert response.json()['price'] == 10.99
-assert response.json()['description'] == 'Pasta with tomato sauce'
+    dish_id = data.get("id")
 
-response = requests.get(ENDPOINT + '/' + str(response.json()['id']))
+    response = requests.get(f"{BASE_URL}/{dish_id}")
+    assert response.status_code == 200
+    data = response.json()
+    assert data.get("name") == "test name"
+    assert data.get("description") == "test description"
+    assert data.get("price") == 1.0
 
-assert response.status_code == 200
-assert response.json()['name'] == 'Pasta'
-assert response.json()['price'] == 10.99
-assert response.json()['description'] == 'Pasta with tomato sauce'
+    response = requests.delete(f"{BASE_URL}/{dish_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data.get("deleted") == dish_id
